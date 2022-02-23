@@ -1,0 +1,27 @@
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openjdk
+  labels:
+    app: openjdk
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openjdk
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: openjdk
+        version: v1
+    spec:
+      serviceAccountName: skyhive
+      containers:
+        - name: openjdk
+          image: 157506822563.dkr.ecr.us-east-2.amazonaws.com/test:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
