@@ -42,6 +42,7 @@ jobs:
     - name: Deploying in to the EKS
       run: |
            aws eks update-kubeconfig --name $EKS_CLUSTERNAME --region $AWS_REGION
+           cat deployment.yaml
            kubectl apply -f deployment.yaml
            sleep 5
            kubectl get pods
