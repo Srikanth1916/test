@@ -27,14 +27,12 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-2
 		
-
-
-    - name: docker & ECR push  
+    - name: docker & ECR push
       run: |
-         aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_URL
-	 docker build -t  $ECR_URL .
-	 docker tag $ECR_URL $ECR_URL/$ECR_REPO
-	 docker push $ECR_URL/$ECR_REPO
+            aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_URL
+            docker build -t  $ECR_URL .
+            docker tag $ECR_URL $ECR_URL/$ECR_REPO
+            docker push $ECR_URL/$ECR_REPO
 
     - name: Setup kubectl 
       uses: kodermax/kubectl-aws-eks@master
@@ -42,7 +40,7 @@ jobs:
 
     - name: Setup kubectl 
       run: |
-      aws eks update-kubeconfig --name $EKS_CLUSTERNAME --region $AWS_REGION
-		 kubectl apply -f deployment.yaml
-		 sleep 5
-		 kubectl get pods
+           aws eks update-kubeconfig --name $EKS_CLUSTERNAME --region $AWS_REGION
+           kubectl apply -f deployment.yaml
+           sleep 5
+           kubectl get pods
