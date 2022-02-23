@@ -1,1 +1,1 @@
-FROM httpd:bullseye
+FROM httpd
