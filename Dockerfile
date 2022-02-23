@@ -1,1 +1,1 @@
-FROM nginx
+FROM nginx:1.13.0-perl
