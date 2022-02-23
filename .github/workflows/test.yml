@@ -30,8 +30,8 @@ jobs:
     - name: docker & ECR push
       run: |
             aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_URL
-            docker build -t  $ECR_URL .
-            docker tag $ECR_URL  $ECR_URL/$ECR_REPO
+            docker build -t  srikanth .
+            docker tag srikanth  $ECR_URL/$ECR_REPO
             docker push $ECR_URL/$ECR_REPO
             docker images
 
