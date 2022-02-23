@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: 157506822563.dkr.ecr.us-east-2.amazonaws.com/test:${{github.run_number}}
+        image: 157506822563.dkr.ecr.us-east-2.amazonaws.com/test:46
         imagePullPolicy: Always
         ports:
         - containerPort: 80
