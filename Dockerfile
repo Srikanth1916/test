@@ -1,1 +1,1 @@
-FROM http
+FROM nginx:1.14.2
