@@ -1,1 +1,1 @@
-FROM nginx:mainline-perl
+FROM nginx:perl
