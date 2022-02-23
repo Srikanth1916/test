@@ -33,12 +33,13 @@ jobs:
             docker build -t  $ECR_URL:${{github.run_number}} .
             docker tag $ECR_URL:${{github.run_number}}  $ECR_URL/$ECR_REPO:${{github.run_number}}
             docker push $ECR_URL/$ECR_REPO:${{github.run_number}}
+            docker images
 
     - name: Setup kubectl 
       uses: kodermax/kubectl-aws-eks@master
 
 
-    - name: Setup kubectl 
+    - name: Deploying in to the EKS
       run: |
            aws eks update-kubeconfig --name $EKS_CLUSTERNAME --region $AWS_REGION
            kubectl apply -f deployment.yaml
