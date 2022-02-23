@@ -31,8 +31,8 @@ jobs:
       run: |
             aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_URL
             docker build -t  $ECR_URL:${{github.run_number}} .
-            docker tag $ECR_URL:${{github.run_number}}  $ECR_URL/$ECR_REPO:${{github.run_number}}
-            docker push $ECR_URL/$ECR_REPO:${{github.run_number}}
+            docker tag $ECR_URL:${{github.run_number}}  $ECR_URL/$ECR_REPO:latest
+            docker push $ECR_URL/$ECR_REPO:latest
             docker images
 
     - name: Setup kubectl 
