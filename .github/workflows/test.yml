@@ -11,7 +11,7 @@ jobs:
       ECR_URL:  157506822563.dkr.ecr.us-east-2.amazonaws.com
       ECR_REPO: test
       AWS_REGION: us-east-2
-      EKS_CLUSTERNAME: eks-cluster
+      buildnumber: ${{ github.run_number }}
     defaults:
       run:
         shell: bash
@@ -31,8 +31,8 @@ jobs:
       run: |
             aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_URL
             docker build -t  srikanth .
-            docker tag srikanth  $ECR_URL/$ECR_REPO
-            docker push $ECR_URL/$ECR_REPO
+            docker tag srikanth  $ECR_URL/$ECR_REPO:${{ github.run_number }}
+            docker push $ECR_URL/$ECR_REPO:${{ github.run_number }}
             docker images
 
     - name: Setup kubectl 
