@@ -12,6 +12,7 @@ jobs:
       ECR_REPO: test
       AWS_REGION: us-east-2
       buildnumber: ${{ github.run_number }}
+      EKS_CLUSTERNAME: eks-cluster
     defaults:
       run:
         shell: bash
