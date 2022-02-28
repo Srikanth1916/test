@@ -15,6 +15,8 @@ spec:
         app: nginx
     spec:
       containers:
-      - name: nginx
-        image: 157506822563.dkr.ecr.us-east-2.amazonaws.com/test
-        - containerPort: 80
+        - name: nginx
+          image: 157506822563.dkr.ecr.us-east-2.amazonaws.com/test
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
