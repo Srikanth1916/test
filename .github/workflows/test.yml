@@ -11,7 +11,7 @@ jobs:
       ECR_URL:  157506822563.dkr.ecr.us-east-2.amazonaws.com
       ECR_REPO: test
       AWS_REGION: us-east-2
-      buildnumber: ${{ github.run_number }}
+      buildnumber: v1.0.${{ github.run_number }}
       EKS_CLUSTERNAME: eks-cluster
     defaults:
       run:
@@ -43,7 +43,7 @@ jobs:
     - name: Deploying in to the EKS
       run: |
            aws eks update-kubeconfig --name $EKS_CLUSTERNAME --region $AWS_REGION
-           sed '/image/ s/$/:v1.0.${{ github.run_number }}/' deployment.yaml > deploy.yaml
+           sed '/image/ s/$/:$buildnumber/' deployment.yaml > deploy.yaml
            cat deploy.yaml
            kubectl apply -f deploy.yaml
            sleep 5
