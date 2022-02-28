@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: 157506822563.dkr.ecr.us-east-2.amazonaws.com/test
+        image: 157506822563.dkr.ecr.us-east-2.amazonaws.com/test:v1.0.${{ github.run_number }}
         ports:
         - containerPort: 80
