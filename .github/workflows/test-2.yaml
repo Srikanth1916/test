@@ -1,0 +1,49 @@
+name: 'test-2'
+
+on:
+  workflow_dispatch
+
+jobs:
+  test:
+    name: 'test process'
+    runs-on: ubuntu-latest
+    env:
+      ECR_URL:  157506822563.dkr.ecr.us-east-2.amazonaws.com
+      ECR_REPO: test
+      AWS_REGION: us-east-2
+      buildnumber: v1.0.${{ github.run_number }}
+      EKS_CLUSTERNAME: eks-cluster
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: git repo Checkout
+      uses: actions/checkout@v2
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: us-east-2
+
+    - name: docker & ECR push
+      run: |
+            aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_URL
+            docker build -t  srikanth .
+            docker tag srikanth  $ECR_URL/$ECR_REPO:v1.0.${{ github.run_number }}
+            docker push $ECR_URL/$ECR_REPO:v1.0.${{ github.run_number }}
+            docker images
+
+    - name: Setup kubectl 
+      uses: kodermax/kubectl-aws-eks@master
+
+
+    - name: Deploying in to the EKS
+      run: |
+           aws eks update-kubeconfig --name $EKS_CLUSTERNAME --region $AWS_REGION
+           cat deployment.yaml
+           kubectl apply -f deployment.yaml
+           sleep 5
+           kubectl get pods
