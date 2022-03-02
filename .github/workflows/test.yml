@@ -11,7 +11,7 @@ jobs:
       ECR_URL:  157506822563.dkr.ecr.us-east-2.amazonaws.com
       ECR_REPO: test
       AWS_REGION: us-east-2
-      buildnumber: v1.0.${{ github.run_number }}
+      buildnumber: dev-${{ github.run_number }}
       EKS_CLUSTERNAME: eks-cluster
     defaults:
       run:
