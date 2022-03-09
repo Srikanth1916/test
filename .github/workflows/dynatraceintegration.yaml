@@ -14,9 +14,6 @@ jobs:
     - name: checkout
       uses: actions/checkout@v2
 
-    - name: build
-      run: this-will-fail
-
     - name: Notify Dynatrace on Build Failed
       if: failure()
       uses: dynatrace-oss/dynatrace-github-action@v8
