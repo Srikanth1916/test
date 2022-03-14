@@ -1,0 +1,29 @@
+name: 'count'
+
+on:
+  workflow_dispatch
+
+jobs:
+  Integration:
+    name: 'count'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - name: git repo Checkout
+      uses: actions/checkout@v2
+
+    - name: Build coun
+      uses: dynatrace-oss/dynatrace-github-action@v8
+      with:
+        url: '${{ secrets.DT_URL }}'
+        token: '${{ secrets.DT_TOKEN }}'
+        metrics: |
+          - metric: "github.metric1"
+		  value: "1.0"
+          dimensions:
+            project: "${{ github.repository }}"
+            branch: "${{ github.ref }}"
+            event: "${{ github.event_name }}"
+            owner: srikanth
