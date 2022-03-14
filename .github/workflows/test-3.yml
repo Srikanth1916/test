@@ -1,0 +1,19 @@
+name: 'test-3'
+
+on:
+  workflow_dispatch
+
+jobs:
+  test:
+    name: 'test process'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: git repo Checkout
+      uses: actions/checkout@v2
+      
+    - name: echo
+      run: echo "hey there!"      
